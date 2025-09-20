@@ -1,6 +1,6 @@
 import HeartIcon from "../../assets/heart.png";
 import { PopularFoods } from "./popularfooddata";
-import PlusIcon from "../../assets/plusIcon.png"
+import PlusIcon from "../../../src/assets/plusIcon.png"
 
 export const PopularFood = () => {
   return (
