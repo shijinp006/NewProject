@@ -4,7 +4,7 @@ import bellIcon from "../../assets/bellIcon.png";
 export const Profile = () => {
   return (
     <>
-      <nav className="flex items-center w-full h-[20px] lg:h-[60px] flex-row  py-6 mt-5">
+      <nav className="flex items-center w-full h-[20px] lg:h-[60px] flex-row  py-6 ">
         <div className="flex items-center w-full max-w-7xl px-4 md:px-6 lf:px-10 mx-auto justify-between ">
           {" "}
           <div className="flex items-center justify-center w-[40px] h-[40px] lg:w-[49px] lg:h-[49px] rounded-full">
