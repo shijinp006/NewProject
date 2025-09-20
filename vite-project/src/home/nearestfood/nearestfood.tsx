@@ -1,6 +1,6 @@
 import { NearestFoods } from "./nearestfooddata";
 import HeartIcon from "../../assets/heart.png";
-import plusIcon from "../../assets/PlusIcon.png";
+import plusIcon from "../../assets/plusIcon.png";
 export const NearestFood = () => {
   return (
     <>
