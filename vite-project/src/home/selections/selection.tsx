@@ -4,17 +4,16 @@ import HeartIcon from "../../assets/heartblack.png";
 import CartIcon from "../../assets/shopping-cart.png";
 import UserIcon from "../../assets/user.png";
 import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Selection = () => {
   const panelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
+  // Close panel when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        panelRef.current &&
-        !panelRef.current.contains(event.target as Node)
-      ) {
+      if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -30,30 +29,38 @@ export const Selection = () => {
       {/* Plus Button */}
       {!isOpen && (
         <div
-          className="flex items-center justify-center w-[30px] h-[30px] rounded-full bg-[#CC001F] cursor-pointer"
+          className="flex items-center justify-center w-[30px] h-[30px] rounded-full bg-[#CC001F] cursor-pointer shadow-lg transform hover:scale-110 transition-transform duration-300"
           onClick={() => setIsOpen(true)}
         >
           <img src={plusIcon} alt="Plus Icon" />
         </div>
       )}
 
-      {/* Open Panel */}
-      {isOpen && (
-        <div className="absolute  bottom-4 right-13 w-[240px] h-[60px] bg-[#CC001F] rounded-full p-4 flex items-center justify-between text-white shadow-lg">
-          <div className="flex items-center justify-center w-[18px] h-full ">
-            <img src={HomeIcon} alt="Home Icon" />
-          </div>
-          <div className="flex items-center justify-center w-[18px] h-full ">
-            <img src={HeartIcon} alt="Heart Icon" />
-          </div>
-          <div className="flex items-center justify-center w-[18px] h-full ">
-            <img src={CartIcon} alt="Cart Icon" />
-          </div>
-          <div className="flex items-center justify-center w-[18px] h-full ">
-            <img src={UserIcon} alt="User Icon" />
-          </div>
-        </div>
-      )}
+      {/* Open Panel with Slide + Fade Animation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="absolute bottom-4 right-4 w-[240px] h-[60px] bg-[#CC001F] rounded-full p-4 flex items-center justify-between text-white shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <div className="flex items-center justify-center w-[18px] h-full">
+              <img src={HomeIcon} alt="Home Icon" />
+            </div>
+            <div className="flex items-center justify-center w-[18px] h-full">
+              <img src={HeartIcon} alt="Heart Icon" />
+            </div>
+            <div className="flex items-center justify-center w-[18px] h-full">
+              <img src={CartIcon} alt="Cart Icon" />
+            </div>
+            <div className="flex items-center justify-center w-[18px] h-full">
+              <img src={UserIcon} alt="User Icon" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -1,9 +1,30 @@
 import HeartIcon from "../../assets/heart.png";
 import { PopularFoods } from "./popularfooddata";
 import plusIcon from "../../assets/plusIcon.png";
-
+import { useEffect, useRef } from "react";
 
 export const PopularFood = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        // Scroll by the width of one card
+        const cardWidth = 165 + 16; // card width + gap (Tailwind gap-4 = 16px)
+        if (
+          scrollRef.current.scrollLeft + scrollRef.current.clientWidth >=
+          scrollRef.current.scrollWidth
+        ) {
+          // If at the end, scroll back to start
+          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          scrollRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
+        }
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <div className="flex flex-col gap-2 py-2 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center">
@@ -18,7 +39,10 @@ export const PopularFood = () => {
         </div>
 
         {/* Horizontal Scroll */}
-        <div className=" flex overflow-x-auto gap-4 py-2 scroll-smooth hide-scrollbar items-center justify-start  lg:grid lg:grid-cols-4 lg:place-items-center lg:gap-2  h-full w-full lg:w-[900px]">
+        <div
+          ref={scrollRef}
+          className=" flex overflow-x-auto gap-4 py-2 scroll-smooth hide-scrollbar items-center justify-start  lg:grid lg:grid-cols-4 lg:place-items-center lg:gap-2  h-full w-full lg:w-[900px]"
+        >
           {PopularFoods.map((item, index) => (
             <div
               key={index}
