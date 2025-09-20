@@ -39,7 +39,7 @@ export const Selection = () => {
 
       {/* Open Panel */}
       {isOpen && (
-        <div className="absolute  bottom-4 right-10 w-[240px] h-[60px] bg-[#CC001F] rounded-full p-4 flex items-center justify-between text-white shadow-lg">
+        <div className="absolute  bottom-4 right-13 w-[240px] h-[60px] bg-[#CC001F] rounded-full p-4 flex items-center justify-between text-white shadow-lg">
           <div className="flex items-center justify-center w-[18px] h-full ">
             <img src={HomeIcon} alt="Home Icon" />
           </div>
