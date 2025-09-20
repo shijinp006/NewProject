@@ -22,7 +22,7 @@ export const PopularFood = () => {
           {PopularFoods.map((item, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[165px] h-[270px] bg-white rounded-lg p-4 flex flex-col justify-between"
+              className="flex-shrink-0 w-[165px] h-[270px] lg:h-full bg-white rounded-lg p-4 flex flex-col justify-between"
             >
               {/* Heart Icon top-right */}
               <div className="flex items-center justify-end">

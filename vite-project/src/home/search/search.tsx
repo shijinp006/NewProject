@@ -7,7 +7,7 @@ export const Search = () => {
       <div className="flex items-center w-full max-w-7xl px-4 md:px-6 lg:px-10 mx-auto">
         <div className="flex  w-full h-full flex-col gap-2 ">
           <div className="flex items-center">
-            <h1 className="font-[Geist] font-bold text-[14px] md:text-4xl leading-[20px] text-gray-800">
+            <h1 className="font-[Geist] font-bold text-[14px] md:text-4xl leading-[20px] lg:leading-[50px] text-gray-800">
               Choose <br />
               Your Favorite <span className="text-[#CC001F]">Food</span>
             </h1>
