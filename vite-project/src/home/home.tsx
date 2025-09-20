@@ -24,7 +24,7 @@ export const Home = () => {
         <div className="w-full">
           <NearestFood />
         </div>
-        <div className="w-full fixed bottom-4 right-0 z-10 p-2 rounded flex items-center justify-end">
+        <div className="w-full fixed bottom-0 right-0 z-10 p-2 rounded flex items-center justify-end">
           <Selection/>
         </div>
       </div>
