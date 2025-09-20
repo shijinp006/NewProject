@@ -40,7 +40,7 @@ export const Selection = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute bottom-4 right-4 w-[240px] h-[60px] bg-[#CC001F] rounded-full p-4 flex items-center justify-between text-white shadow-lg"
+            className="absolute bottom-4 right-10 w-[240px] h-[60px] bg-[#CC001F] rounded-full p-4 flex items-center justify-between text-white shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
