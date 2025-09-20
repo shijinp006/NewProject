@@ -1,8 +1,8 @@
 import plusIcon from "../../assets/plusIcon.png";
-import HomeIcon from "../../assets/home.png"
-import HeartIcon from "../../assets/heartblack.png"
-import CartIcon from "../../assets/shopping-cart.png"
-import UserIcon from "../../assets/user.png"
+import HomeIcon from "../../assets/home.png";
+import HeartIcon from "../../assets/heartblack.png";
+import CartIcon from "../../assets/shopping-cart.png";
+import UserIcon from "../../assets/user.png";
 import { useState, useRef, useEffect } from "react";
 
 export const Selection = () => {
@@ -39,19 +39,19 @@ export const Selection = () => {
 
       {/* Open Panel */}
       {isOpen && (
-        <div className="absolute  bottom-4 right-4 w-[200px] h-[40px] bg-[#CC001F] rounded-full p-4 flex items-center justify-between text-white shadow-lg">
-            <div className="flex items-center justify-center w-[15px] h-full ">
-                <img src={HomeIcon} alt="Home Icon" />
-            </div>
-            <div className="flex items-center justify-center w-[15px] h-full ">
-                <img src={HeartIcon} alt="Heart Icon" />
-            </div>
-              <div className="flex items-center justify-center w-[15px] h-full ">
-                <img src={CartIcon} alt="Cart Icon" />
-            </div>
-              <div className="flex items-center justify-center w-[15px] h-full ">
-                <img src={UserIcon} alt="User Icon" />
-            </div>
+        <div className="absolute  bottom-4 right-10 w-[240px] h-[60px] bg-[#CC001F] rounded-full p-4 flex items-center justify-between text-white shadow-lg">
+          <div className="flex items-center justify-center w-[18px] h-full ">
+            <img src={HomeIcon} alt="Home Icon" />
+          </div>
+          <div className="flex items-center justify-center w-[18px] h-full ">
+            <img src={HeartIcon} alt="Heart Icon" />
+          </div>
+          <div className="flex items-center justify-center w-[18px] h-full ">
+            <img src={CartIcon} alt="Cart Icon" />
+          </div>
+          <div className="flex items-center justify-center w-[18px] h-full ">
+            <img src={UserIcon} alt="User Icon" />
+          </div>
         </div>
       )}
     </div>
