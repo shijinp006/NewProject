@@ -1,6 +1,6 @@
 import HeartIcon from "../../assets/heart.png";
 import { PopularFoods } from "./popularfooddata";
-import plusIcon from "../../assets/PlusIcon.png";
+import PlusIcon from "../../assets/plusIcon.png"
 
 export const PopularFood = () => {
   return (
@@ -51,7 +51,7 @@ export const PopularFood = () => {
               <div className="flex items-center justify-between mt-2">
                 <p className="font-sans font-bold text-[14px]">{item.price}</p>
                 <div className="flex items-center justify-center bg-[#CC001F] w-[23px] h-[23px] rounded-[4px] cursor-pointer">
-                  <img src={plusIcon} alt="Plus Icon" />
+                  <img src={PlusIcon} alt="Plus Icon" />
                 </div>
               </div>
             </div>
