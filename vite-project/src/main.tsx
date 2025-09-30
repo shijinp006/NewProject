@@ -6,7 +6,7 @@ import axios from "axios";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Set Axios base URL
-axios.defaults.baseURL = "http://localhost:4000/";
+axios.defaults.baseURL = "https://new-project-chse.vercel.app";
 
 // Create React Query client
 const queryClient = new QueryClient();

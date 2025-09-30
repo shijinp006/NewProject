@@ -6,7 +6,7 @@ import CartRoute  from "./routes/CartRoute.js";
 import FavoriteRoute from "./routes/FavoriteRoute.js";
 
 const app = express();
-const Port = 4000;
+const backendUrl =  "https://new-project-chse.vercel.app";
 
 // Middleware
 app.use(
@@ -25,6 +25,6 @@ app.use("/", FoodRoute);
 app.use("/", CartRoute);
 app.use("/", FavoriteRoute);
 
-app.listen(Port, () => {
-  console.log(`Server Running Port ${Port}`);
+app.listen(backendUrl, () => {
+  console.log(`Server Running Port ${backendUrl}`);
 });
