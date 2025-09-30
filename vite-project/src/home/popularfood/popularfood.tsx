@@ -41,6 +41,8 @@ export const PopularFood = (search: any) => {
       }
     }, 5000);
 
+    
+
     return () => clearInterval(interval);
   }, []);
   if (isLoading) {
