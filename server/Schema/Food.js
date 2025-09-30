@@ -2,7 +2,7 @@ export const Foods = [
   {
     id: 1,
     name: "Hamburger",
-    image: "https://new-project-chse.vercel.app/public/images/burger.png",
+    image: "https://new-project-chse.vercel.app/images/burger.png",
     subName: "burger",
     price: 120.0,
     category: "Popular Food",
@@ -12,7 +12,7 @@ export const Foods = [
   {
     id: 2,
     name: "Pizza",
-    image: "https://new-project-chse.vercel.app/public/images/pizza.png",
+    image: "https://new-project-chse.vercel.app/images/pizza.png",
     subName: "pizza",
     price: 250.0,
     category: "Popular Food",
@@ -22,7 +22,7 @@ export const Foods = [
   {
     id: 3,
     name: "Normal Burger",
-    image: "https://new-project-chse.vercel.app/public/images/normalburger.jpg",
+    image: "https://new-project-chse.vercel.app/images/normalburger.jpg",
     subName: "burger",
     price: 150.0,
     category: "Nearest Food",
@@ -32,7 +32,7 @@ export const Foods = [
   {
     id: 4,
     name: "Hot Burger",
-    image: "https://new-project-chse.vercel.app/public/images/hotburger.jpg",
+    image: "https://new-project-chse.vercel.app/images/hotburger.jpg",
     subName: "burger",
     price: 180.0,
     category: "Nearest Food",
@@ -42,7 +42,7 @@ export const Foods = [
   {
     id: 5,
     name: "Double Patty Burger",
-    image: "https://new-project-chse.vercel.app/public/images/burger6.png",
+    image: "https://new-project-chse.vercel.app/images/burger6.png",
     subName: "patties",
     price: 220.0,
     category: "Popular Food",
@@ -52,7 +52,7 @@ export const Foods = [
   {
     id: 6,
     name: "Special Combo",
-    image: "https://new-project-chse.vercel.app/public/images/burger5.jpg",
+    image: "https://new-project-chse.vercel.app/images/burger5.jpg",
     subName: "fries & drink",
     price: 350.0,
     category: "Popular Food",
@@ -62,7 +62,7 @@ export const Foods = [
   {
     id: 7,
     name: "Family Meal",
-    image: "https://new-project-chse.vercel.app/public/images/burger7.jpg",
+    image: "https://new-project-chse.vercel.app/images/burger7.jpg",
     subName: "family Meal",
     price: 500.3,
     category: "Nearest Food",
@@ -72,8 +72,7 @@ export const Foods = [
   {
     id: 8,
     name: "Broasted Chicken",
-    image:
-      "https://new-project-chse.vercel.app/public/images/broastedchicken.png",
+    image: "https://new-project-chse.vercel.app/images/broastedchicken.png",
     subName: "Crispy fried chicken",
     price: 300.0,
     category: "Nearest Food",

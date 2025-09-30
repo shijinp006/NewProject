@@ -1,6 +1,5 @@
 import LeftArrow from "../assets/angle-left.png";
 import { CiMenuKebab } from "react-icons/ci";
-
 import { useState } from "react";
 import MinusIcon from "../assets/minus.png";
 import PlusIcon from "../assets/plusIcon.png";
@@ -30,7 +29,7 @@ export const ProductDetails = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-red-500 border-dashed rounded-full animate-spin"></div>
       </div>
     );
   }
