@@ -19,10 +19,10 @@ mongoose
 
 const app = express();
 const backendUrl = process.env.BACKEND_URL
-console.log(backendUrl);
+// console.log(backendUrl);
 
 
-const Port = 4000;
+// const Port = 4000;
 // Middleware
 app.use(
   cors({

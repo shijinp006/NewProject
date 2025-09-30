@@ -5,20 +5,11 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetFood } from "../../../hook/food";
 import { useAddToFavoriteList } from "../../../hook/favoriteList";
-export const NearestFood = ({
-  search,
-  Loading,
-}: {
-  search: any;
-  Loading: (val: boolean) => void;
-}) => {
+export const NearestFood = (search: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { data, isLoading } = useGetFood(search);
 
-  if (isLoading) {
-    Loading(true);
-  }
   const navigate = useNavigate();
   const NearestFood = data?.filter((food) => food.category === "Nearest Food");
 
@@ -50,6 +41,13 @@ export const NearestFood = ({
 
     return () => clearInterval(interval);
   }, []);
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-12 h-12 border-4 border-red-500 border-dashed rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   if (!data || data.length === 0) return <p>No foods available.</p>;
   return (

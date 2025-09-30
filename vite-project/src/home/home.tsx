@@ -8,15 +8,9 @@ import { useState } from "react";
 export const Home = () => {
   const [search, setSearch] = useState();
 
-  const [isLoading, setIsLoading] = useState(false);
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="w-12 h-12 border-4 border-red-500 border-dashed rounded-full animate-spin"></div>
-      </div>
-    );
-  }
+
+
   return (
     <>
       <div className="w-full h-full flex items-center justify-center flex-col lg:flex-row flex-wrap bg-[#F5F5F5] relative">
@@ -33,7 +27,7 @@ export const Home = () => {
           <PopularFood search={search} />
         </div>
         <div className="w-full">
-          <NearestFood search={search} Loading={setIsLoading} />
+          <NearestFood search={search} />
         </div>
         <div className="w-full fixed bottom-0 right-0 z-6  rounded flex items-center justify-end">
           <Selection />
