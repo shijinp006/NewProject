@@ -8,7 +8,7 @@ import { useAddToFavoriteList } from "../../../hook/favoriteList";
 export const NearestFood = (search: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading } = useGetFood(search);
+  const { data, } = useGetFood(search);
 
   const navigate = useNavigate();
   const NearestFood = data?.filter((food) => food.category === "Nearest Food");
@@ -41,15 +41,7 @@ export const NearestFood = (search: any) => {
 
     return () => clearInterval(interval);
   }, []);
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="w-12 h-12 border-4 border-red-500 border-dashed rounded-full animate-spin"></div>
-      </div>
-    );
-  }
 
-  if (!data || data.length === 0) return <p>No foods available.</p>;
   return (
     <>
       <div className="flex flex-col  py-2 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center">
