@@ -1,45 +1,38 @@
-import { Foods } from "../../Schema/Food.js";
+import Food from "../../Schema/Food.js";
 import { Cart } from "../../Schema/Cart.js";
 import { FavoriteList } from "../../Schema/FavoriteList.js";
 
-export const AddToCart = (req, res) => {
+// Add item to Cart
+export const addToCart = async (req, res) => {
   try {
+    const id = Number(req.params.id);
     const { quantity } = req.body;
-    const id = Number(req.params.id); // Product Id
 
-    // ✅ Validate quantity
-    if (isNaN(quantity) || quantity <= 0) {
+    if (!id || isNaN(id)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
+
+    if (!quantity || isNaN(quantity) || quantity <= 0) {
       return res
         .status(400)
         .json({ message: "Quantity must be a positive number" });
     }
 
-    // ✅ Find the product in Foods
-    const product = Foods.find((item) => item.id === id);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
+    // Find the product
+    const product = await Food.findOne({ id });
+    if (!product) return res.status(404).json({ message: "Product not found" });
 
-    // ✅ Check if product is already in Cart
-    const exist = Cart.find((item) => item.id === id);
-    if (exist) {
+    // Check if already in cart
+    const existingCartItem = await Cart.findOne({ id });
+    if (existingCartItem) {
       return res.status(200).json({
         message: "Item already exists in cart",
-        cart: Cart,
+        cartItem: existingCartItem,
       });
     }
 
-    // ✅ Update product in Foods → mark it as in cart
-    product.cart = true;
-
-    // ✅ Update same product in FavoriteList if exists
-    const favoriteItem = FavoriteList.find((item) => item.id === id);
-    if (favoriteItem) {
-      favoriteItem.cart = true;
-    }
-
-    // ✅ Add product to Cart
-    const newItem = {
+    // Add to cart
+    const newCartItem = await Cart.create({
       id: product.id,
       cart: true,
       name: product.name,
@@ -47,13 +40,22 @@ export const AddToCart = (req, res) => {
       image: product.image,
       quantity,
       totalAmount: product.price * quantity,
-    };
+    });
 
-    Cart.push(newItem);
+    // Update product cart flag
+    product.cart = true;
+    await product.save();
+
+    // Update FavoriteList cart flag if exists
+    const favoriteItem = await FavoriteList.findOneAndUpdate(
+      { id },
+      { cart: true },
+      { new: true }
+    );
 
     return res.status(201).json({
       message: "Item added to cart successfully",
-      cart: Cart,
+      cartItem: newCartItem,
     });
   } catch (error) {
     console.error("Error adding to cart:", error);
@@ -61,83 +63,73 @@ export const AddToCart = (req, res) => {
   }
 };
 
-// Get Cart Items
-
-// Example Express controller
+// Get all Cart Items
 export const getCartItems = async (req, res) => {
   try {
-    if (Cart && Cart.length > 0) {
-      return res.status(200).json(Cart);
-    } else {
-      return res.status(204).json({ message: "No items found in cart" });
+    const cartItems = await Cart.find({}).lean();
+    if (!cartItems.length) {
+      return res
+        .status(200)
+        .json({ message: "No items in cart", cartItems: [] });
     }
+    console.log(cartItems, "cartItems");
+
+    return res.status(200).json(cartItems);
   } catch (error) {
     console.error("Error fetching cart items:", error);
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
-//Update Cart Qty
-
-export const updateCartQty = (req, res) => {
-  const id = Number(req.params.id);
-  const { quantity } = req.body;
-
-  // Validate ID
-  if (!id || isNaN(id)) {
-    return res.status(400).json({ message: "Invalid cart item ID" });
-  }
-
-  // Validate quantity
-  if (quantity === undefined || isNaN(quantity)) {
-    return res.status(400).json({ message: "Quantity must be a number" });
-  }
-
-  if (quantity < 1) {
-    return res.status(400).json({ message: "Quantity must be at least 1" });
-  }
-
-  // Find the cart item
-  const itemIndex = Cart.findIndex((item) => item.id === id);
-  if (itemIndex === -1) {
-    return res.status(404).json({ message: "Cart item not found" });
-  }
-
-  // Update the quantity and totalAmount
-  Cart[itemIndex].quantity = quantity;
-  Cart[itemIndex].totalAmount = Cart[itemIndex].price * quantity;
-
-  return res.status(200).json({
-    message: "Cart quantity updated successfully",
-    cartItem: Cart[itemIndex],
-  });
-};
-export const Delete = (req, res) => {
+// Update Cart Quantity
+export const updateCartQty = async (req, res) => {
   try {
     const id = Number(req.params.id);
-    if (isNaN(id)) {
-      return res.status(400).json({ message: "Invalid ID" });
-    }
+    const { quantity } = req.body;
 
-    // ✅ Remove item from Cart
-    const index = Cart.findIndex((item) => item.id === id);
-    if (index !== -1) {
-      Cart.splice(index, 1);
-    } else {
-      return res.status(404).json({ message: "Item not found in cart" });
-    }
+    if (!id || isNaN(id))
+      return res.status(400).json({ message: "Invalid cart item ID" });
+    if (!quantity || isNaN(quantity) || quantity < 1)
+      return res.status(400).json({ message: "Quantity must be at least 1" });
 
-    // ✅ Update Foods array
-    const foodItem = Foods.find((item) => item.id === id);
-    if (foodItem) foodItem.cart = false;
+    const cartItem = await Cart.findOne({ id });
+    if (!cartItem)
+      return res.status(404).json({ message: "Cart item not found" });
 
-    // ✅ Update FavoriteList array
-    const favoriteItem = FavoriteList.find((item) => item.id === id);
-    if (favoriteItem) favoriteItem.cart = false;
+    cartItem.quantity = quantity;
+    cartItem.totalAmount = cartItem.price * quantity;
+    await cartItem.save();
 
     return res.status(200).json({
-      message: "Item deleted from cart successfully",
-      cart: Cart,
+      message: "Cart quantity updated successfully",
+      cartItem,
     });
+  } catch (error) {
+    console.error("Error updating cart quantity:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Delete Cart Item
+export const deleteCartItem = async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (!id || isNaN(id))
+      return res.status(400).json({ message: "Invalid ID" });
+
+    const cartItem = await Cart.findOneAndDelete({ id });
+    if (!cartItem)
+      return res.status(404).json({ message: "Cart item not found" });
+
+    // Reset cart flag in Food
+    await Food.findOneAndUpdate({ id }, { cart: false });
+
+    // Reset cart flag in FavoriteList if exists
+    await FavoriteList.findOneAndUpdate({ id }, { cart: false });
+
+    return res
+      .status(200)
+      .json({ message: "Item removed from cart successfully" });
   } catch (error) {
     console.error("Error deleting cart item:", error);
     return res.status(500).json({ message: "Server error" });

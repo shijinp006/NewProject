@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "index.js"
+    }
+  ],
+  "env": {
+    "MONGO_URI": "mongodb+srv://shijinp9404_db_user:<db_password>@mymongodb.7w6ykb4.mongodb.net/",
+    "PORT": "4000"
+  }
+}

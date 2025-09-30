@@ -8,7 +8,7 @@ import { useGetCartItems } from "../../hook/cart";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUpdateQty, useDeleteCart } from "../../hook/cart";
-import EmptyCartImg from "../assets/empty-cart.png"
+import EmptyCartImg from "../assets/empty-cart.png";
 interface CartItem {
   id: number;
   name: string;
@@ -23,6 +23,7 @@ export const CartList = () => {
   const { data: cart, isLoading } = useGetCartItems();
   const [items, setItems] = useState<CartItem[]>([]);
 
+  const itemsArray = Array.isArray(items) ? items : [];
   useEffect(() => {
     if (cart as any) setItems(cart as any);
   }, [cart]);
@@ -37,7 +38,7 @@ export const CartList = () => {
       </div>
     );
   }
-  if (!items || items.length === 0)
+  if (!itemsArray || itemsArray.length === 0)
     return (
       <div className="flex flex-col items-center justify-center h-screen px-4 text-center space-y-6">
         {/* Empty Cart Image */}
@@ -78,7 +79,7 @@ export const CartList = () => {
     );
 
     // Find the updated quantity
-    const item = items.find((i) => i.id === id);
+    const item = itemsArray.find((i) => i.id === id);
     if (item) {
       updateCartQty({ id, quantity: item.quantity + 1 }); // call mutation
     }
@@ -95,7 +96,7 @@ export const CartList = () => {
           : item
       )
     );
-    const item = items.find((i) => i.id === id);
+    const item = itemsArray.find((i) => i.id === id);
     if (item) {
       updateCartQty({ id, quantity: item.quantity - 1 }); // call mutation
     }
@@ -123,7 +124,7 @@ export const CartList = () => {
 
       {/* Cart Items */}
       <div className="flex-1 overflow-y-auto px-4 py-4 max-w-3xl mx-auto w-full">
-        {items.map((item) => (
+        {itemsArray.map((item) => (
           <div
             key={item.id}
             className="relative flex items-center justify-between bg-white rounded-xl shadow-md p-4 sm:p-6 mb-4"
@@ -186,7 +187,7 @@ export const CartList = () => {
             </span>
             <span className="font-sans font-bold text-[12px]">
               ₹
-              {items
+              {itemsArray
                 .reduce((acc, item) => acc + item.totalAmount, 0)
                 .toFixed(2)}
             </span>
@@ -202,7 +203,7 @@ export const CartList = () => {
             <span className="font-sans font-bold text-[12px]">
               ₹
               {(
-                items.reduce((acc, item) => acc + item.totalAmount, 0) + 20
+                itemsArray.reduce((acc, item) => acc + item.totalAmount, 0) + 20
               ).toFixed(2)}
             </span>
           </div>

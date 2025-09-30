@@ -16,7 +16,6 @@ export const FavoriteList = () => {
   const favoriteItems = Array.isArray(favoriteItemsData)
     ? favoriteItemsData
     : [];
-  console.log(favoriteItems, "fav");
 
   const handleAddToCart = (id: number, quantity: number = 1) => {
     addToCart({ id, quantity });

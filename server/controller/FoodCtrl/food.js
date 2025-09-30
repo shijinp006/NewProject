@@ -1,39 +1,56 @@
-import { Foods } from "../../Schema/Food.js";
+import Food from "../../Schema/Food.js";
 
-// Get Popular Foods
+// Get all foods or search by query
 export const getFood = async (req, res) => {
   try {
-    const { search } = req.query; // get search term from query params
-    console.log(search);
+    const { search } = req.query;
 
-    // If search is empty, null, undefined, or empty string, return full list
+    let foods;
+
     if (!search || search.trim() === "") {
-      return res.status(200).json(Foods);
+      // If no search term, return all foods
+      foods = await Food.find({});
+    } else {
+      const regex = new RegExp(search, "i"); // Case-insensitive search
+      foods = await Food.find({
+        $or: [
+          { name: regex },
+          { category: regex }
+        ]
+      });
     }
 
-    const lowerSearch = search.toLowerCase();
-    const filteredFoods = Foods.filter(
-      (item) =>
-        item.name.toLowerCase().includes(lowerSearch) ||
-        (item.category && item.category.toLowerCase().includes(lowerSearch))
-    );
-
-    return res.status(200).json(filteredFoods);
+    return res.status(200).json(foods);
   } catch (error) {
     console.error("Error fetching foods:", error);
     return res.status(500).json({ message: "Server error" });
   }
 };
 
+// Get food by ID
 export const getFoodbyId = async (req, res) => {
-  const { id } = req.params;
-  const productId = Number(id);
+  try {
+    
+ 
+    
+    const { id } = req.params;
+    const productId = Number(id);
+    console.log(productId,"id");
+    
 
-  if (!productId) {
-    res.status(400).json({ message: "Invaid Id" });
+    if (isNaN(productId)) {
+      return res.status(400).json({ message: "Invalid ID" });
+    }
+
+    const food = await Food.findOne({ id: productId });
+
+    if (!food) {
+      return res.status(404).json({ message: "Food not found" });
+    }
+
+    return res.status(200).json([food]);
+  } catch (error) {
+    console.error("Error fetching food by ID:", error);
+    return res.status(500).json({ message: "Server error" });
   }
-
-  const Food = Foods.find((item) => item.id === productId);
-
-  return res.status(200).json([Food]);
 };
