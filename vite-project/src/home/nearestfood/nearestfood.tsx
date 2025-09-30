@@ -8,7 +8,7 @@ import { useAddToFavoriteList } from "../../../hook/favoriteList";
 export const NearestFood = (search: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading, error } = useGetFood(search);
+  const { data, isLoading } = useGetFood(search);
 
   const navigate = useNavigate();
   const NearestFood = data?.filter((food) => food.category === "Nearest Food");
