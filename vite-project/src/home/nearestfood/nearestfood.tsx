@@ -5,11 +5,14 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetFood } from "../../../hook/food";
 import { useAddToFavoriteList } from "../../../hook/favoriteList";
-export const NearestFood = (search: any) => {
+export const NearestFood = (search: any ,Loading :any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { data, isLoading } = useGetFood(search);
 
+  if(isLoading) {
+    Loading(true)
+  }
   const navigate = useNavigate();
   const NearestFood = data?.filter((food) => food.category === "Nearest Food");
 
