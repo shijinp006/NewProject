@@ -18,7 +18,9 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 const app = express();
-// const backendUrl =  "https://new-project-chse.vercel.app";
+const backendUrl = process.env.BACKEND_URL
+console.log(backendUrl);
+
 
 const Port = 4000;
 // Middleware
@@ -38,6 +40,6 @@ app.use("/", FoodRoute);
 app.use("/", CartRoute);
 app.use("/", FavoriteRoute);
 
-app.listen(Port, () => {
-  console.log(`Server Running Port ${Port}`);
+app.listen(backendUrl, () => {
+  console.log(`Server Running Port ${backendUrl}`);
 });
