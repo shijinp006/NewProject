@@ -1,11 +1,27 @@
-import { NearestFoods } from "./nearestfooddata";
 import HeartIcon from "../../assets/heart.png";
-import plusIcon from "../../assets/plusIcon.png";
+import { FaHeart } from "react-icons/fa6";
+import { GoPlus } from "react-icons/go";
 import { useEffect, useRef } from "react";
-
-export const NearestFood = () => {
+import { useNavigate } from "react-router-dom";
+import { useGetFood } from "../../../hook/food";
+import { useAddToFavoriteList } from "../../../hook/favoriteList";
+export const NearestFood = (search: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const { data, isLoading, error } = useGetFood(search);
+
+  const navigate = useNavigate();
+  const NearestFood = data?.filter((food) => food.category === "Nearest Food");
+
+  const handleClick = (id: number) => {
+    navigate(`/productdetails/${id}`);
+  };
+
+  const { mutate: addToFavoriteList } = useAddToFavoriteList();
+
+  const addToFavorite = (id: number) => {
+    addToFavoriteList({ id });
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       if (scrollRef.current) {
@@ -25,9 +41,19 @@ export const NearestFood = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-12 h-12 border-4 border-red-500 border-dashed rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) return <p>No foods available.</p>;
   return (
     <>
-      <div className="flex flex-col gap-2 py-2 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center">
+      <div className="flex flex-col  py-2 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center">
         {/* Header */}
         <div className="flex items-center justify-between w-full">
           <p className="text-xs lg:text-base font-[Geist] font-bold text-gray-800">
@@ -43,15 +69,22 @@ export const NearestFood = () => {
           ref={scrollRef}
           className="flex overflow-x-auto gap-4 py-2 scroll-smooth hide-scrollbar items-center justify-start lg:grid lg:grid-cols-4 lg:place-items-center lg:gap-2 h-full w-full lg:w-[900px]"
         >
-          {NearestFoods.map((item, index) => (
+          {NearestFood?.map((item: any) => (
             <div
-              key={index}
+              key={item.id}
               className="flex-shrink-0 w-[165px] h-[270px] lg:h-full bg-white rounded-lg p-4 flex flex-col justify-between"
             >
               {/* Heart Icon */}
-              <div className="flex items-center justify-end">
-                <img src={HeartIcon} alt="Heart Icon" className="w-[20px]" />
-              </div>
+              <button
+                className="flex items-center justify-end"
+                onClick={() => addToFavorite(item.id)}
+              >
+                {item.status === "Favorite" ? (
+                  <FaHeart className="text-red-500 w-5 h-5" />
+                ) : (
+                  <img src={HeartIcon} alt="Heart Icon" className="w-5 h-5" />
+                )}
+              </button>
 
               {/* Food Image */}
               <div className="flex items-center justify-center w-full">
@@ -60,6 +93,7 @@ export const NearestFood = () => {
                     src={item.image}
                     alt={item.name}
                     className="w-full h-full object-cover"
+                    onClick={() => handleClick(item.id)}
                   />
                 </div>
               </div>
@@ -74,9 +108,12 @@ export const NearestFood = () => {
 
               {/* Price + Add Button */}
               <div className="flex items-center justify-between mt-2">
-                <p className="font-sans font-bold text-[14px]">{item.price}</p>
+                <p className="font-sans font-bold text-[14px]">
+                  {" "}
+                  Rs. {item.price}
+                </p>
                 <div className="flex items-center justify-center bg-[#CC001F] w-[23px] h-[23px] rounded-[4px] cursor-pointer">
-                  <img src={plusIcon} alt="Plus Icon" />
+                  <GoPlus className="w-full text-white" />
                 </div>
               </div>
             </div>

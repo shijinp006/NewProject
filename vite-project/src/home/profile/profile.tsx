@@ -11,7 +11,7 @@ export const Profile = () => {
             <img
               src={profile}
               alt="Proifile Photo"
-              className="rounded-full w-full h-full"
+              className="rounded-full w-full h-full object-cover"
             />
           </div>
           <div className="flex items-center justify-center w-[20px] h-[10px] rounded-full">
