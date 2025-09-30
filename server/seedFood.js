@@ -2,11 +2,13 @@
 import mongoose from "mongoose";
 import Food from "./Schema/Food.js";
 import { Foods } from "./FoodsData/Foods.js";
+import dotenv from "dotenv";
+dotenv.config();
+// const mongoURI = "mongodb://127.0.0.1:27017/mydatabase"; // Replace with your DB
 
-const mongoURI = "mongodb://127.0.0.1:27017/mydatabase"; // Replace with your DB
-
+const mongoUri = process.env.MONGO_URI;
 mongoose
-  .connect(mongoURI, {})
+  .connect(mongoUri, {})
   .then(async () => {
     console.log("MongoDB Connected");
 
