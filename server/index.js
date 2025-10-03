@@ -7,22 +7,22 @@ import FavoriteRoute from "./routes/FavoriteRoute.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-// const mongoURI = "mongodb://127.0.0.1:27017/mydatabase"; // Replace 'mydatabase' with your DB name
+const mongoURI = "mongodb://127.0.0.1:27017/mydatabase"; // Replace 'mydatabase' with your DB name
 
-const mongoUri = process.env.MONGO_URI;
+// const mongoUri = process.env.MONGO_URI;
 
 
 mongoose
-  .connect(mongoUri, {})
+  .connect(mongoURI, {})
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 const app = express();
-const backendUrl = process.env.BACKEND_URL
+// const backendUrl = process.env.BACKEND_URL
 // console.log(backendUrl);
 
 
-// const Port = 4000;
+const Port = 4000;
 // Middleware
 app.use(
   cors({
@@ -40,6 +40,6 @@ app.use("/", FoodRoute);
 app.use("/", CartRoute);
 app.use("/", FavoriteRoute);
 
-app.listen(backendUrl, () => {
-  console.log(`Server Running Port ${backendUrl}`);
+app.listen(Port, () => {
+  console.log(`Server Running Port ${Port}`);
 });

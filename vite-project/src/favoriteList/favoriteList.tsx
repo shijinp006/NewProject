@@ -71,11 +71,11 @@ export const FavoriteList = () => {
       <div className="flex items-center justify-between w-full h-13 px-4 bg-red-900 text-white">
         <Link
           to="/"
-          className="p-2 bg-white rounded-md flex items-center justify-center "
+          className="p-1 bg-white rounded-md flex items-center justify-center "
         >
-          <img src={LeftArrow} alt="Back" className="w-3" />
+          <img src={LeftArrow} alt="Back" className="w-5" />
         </Link>
-        <h1 className="font-bold text-[14px]">My Favorites</h1>
+        <h1 className="font-bold text-[14px]">Wish List</h1>
         <div className="p-2 bg-white rounded-md flex items-center justify-center">
           <img src={Shoppingbag} alt="Cart" className="w-3" />
         </div>
