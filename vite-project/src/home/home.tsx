@@ -25,9 +25,6 @@ export const Home = () => {
     return () => clearTimeout(timer);
   }, [loading]); // run once on mount
 
-
-  
-
   return (
     <>
       <div className="w-full h-full flex items-center justify-center flex-col lg:flex-row flex-wrap bg-[#F5F5F5] relative">
@@ -54,7 +51,7 @@ export const Home = () => {
             Loading={setIsLoading}
           />
         </div>
-        <div className="w-full fixed bottom-0 right-0 z-6  rounded flex items-center justify-end">
+        <div className="w-full fixed bottom-2 z-6  rounded flex items-center justify-center lg:justify-end ">
           <Selection />
         </div>
       </div>
