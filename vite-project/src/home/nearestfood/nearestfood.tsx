@@ -11,9 +11,9 @@ export const NearestFood = ({ search, filter }: any) => {
   const { data } = useGetFood(search, filter);
 
   const navigate = useNavigate();
-  const NearestFood = (data || [])?.filter(
-    (food: any) => food.category === "Nearest Food"
-  );
+  const NearestFood = Array.isArray(data)
+    ? data.filter((food: any) => food.category === "Nearest Food")
+    : [];
 
   const handleClick = (id: number) => {
     navigate(`/productdetails/${id}`);

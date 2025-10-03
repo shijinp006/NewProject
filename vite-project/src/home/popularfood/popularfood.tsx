@@ -11,10 +11,8 @@ export const PopularFood = ({ search, filter }: any) => {
   const { data, isLoading, error } = useGetFood(search, filter);
   const navigate = useNavigate();
   console.log(error);
+const PopularFood = Array.isArray(data) ? data.filter(f => f.category === "Popular Food") : [];
 
-const PopularFood = (data || []) ?.filter(
-  (food: any) => food.category === "Popular Food"
-);
 
 console.log(data,"data");
 
