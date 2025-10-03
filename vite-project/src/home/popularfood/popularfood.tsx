@@ -11,11 +11,9 @@ export const PopularFood = ({ search, filter }: any) => {
   const { data, isLoading, error } = useGetFood(search, filter);
   const navigate = useNavigate();
   console.log(error);
-const PopularFood = Array.isArray(data) ? data.filter(f => f.category === "Popular Food") : [];
-
-
-console.log(data,"data");
-
+  const PopularFood = Array.isArray(data)
+    ? data.filter((f) => f.category === "Popular Food")
+    : [];
 
   const handleClick = (id: number) => {
     navigate(`/productdetails/${id}`);
@@ -53,7 +51,8 @@ console.log(data,"data");
     );
   }
 
-  if (!data || data.length === 0 || data === undefined) return <p>No foods available.</p>;
+  if (!data || data.length === 0 || data === undefined)
+    return <p>No foods available.</p>;
   return (
     <>
       <div className="flex flex-col  py-2 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center">

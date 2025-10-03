@@ -11,8 +11,8 @@ export const Selection = () => {
   const { data: cartItems } = useGetCartItems();
   const { data: favoriteItems } = useGetFavoriteItemsList();
   const location = useLocation(); // to determine active route
-  console.log(cartItems,"cart");
-  console.log(favoriteItems , "fav");
+
+  console.log(cartItems?.length , "length");
   
   
 
