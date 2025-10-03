@@ -215,7 +215,7 @@ export const CartList = () => {
 
       {/* Conditional Selection */}
 
-      <div className="fixed bottom-0 left-0 w-full z-10">
+      <div className=" flex items-center justify-center lg:justify-end fixed bottom-2  w-full z-10">
         <Selection />
       </div>
     </div>
