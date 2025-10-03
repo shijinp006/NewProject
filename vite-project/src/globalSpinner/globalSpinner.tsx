@@ -4,6 +4,7 @@ import { useLoading } from "../loadingContext/loadingContext";
 
 export const GlobalSpinner = () => {
   const { isLoading } = useLoading();
+  
 
   if (!isLoading) return null;
 

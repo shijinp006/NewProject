@@ -14,7 +14,7 @@ export const addToFavoriteList = async (req, res) => {
     const exists = await FavoriteList.findOne({ id });
     if (exists)
       return res
-        .status(200)
+        .status(409)
         .json({ message: "Product already in favorites", favorite: exists });
 
     // Add to FavoriteList

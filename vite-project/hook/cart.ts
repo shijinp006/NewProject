@@ -40,9 +40,9 @@ export const useAddToCart = () => {
         else if (oldCart && Array.isArray((oldCart as any).cart))
           cartArray = (oldCart as any).cart;
 
-        const exists = cartArray.find((item:any) => item.id === id);
+        const exists = cartArray.find((item: any) => item.id === id);
         if (exists) {
-          return cartArray.map((item:any) =>
+          return cartArray.map((item: any) =>
             item.id === id
               ? {
                   ...item,
@@ -72,11 +72,19 @@ export const useAddToCart = () => {
     },
 
     // ✅ Rollback on error
-    onError: (error, _variables, context: any) => {
+    onError: (error: any, _variables, context: any) => {
       if (context?.previousCart) {
         queryClient.setQueryData(["cartItems"], context.previousCart);
       }
-      toast.error(`Failed to add item: ${error.message}`);
+
+      // ✅ Handle 409 conflict
+      if (error.response?.status === 409) {
+        toast.error(error.response?.data?.message || "Product already in cart");
+      } else {
+        toast.error(
+          error.response?.data?.message || `Failed: ${error.message}`
+        );
+      }
     },
 
     // ✅ Sync with server response

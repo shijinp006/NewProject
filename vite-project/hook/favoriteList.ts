@@ -19,27 +19,24 @@ export interface FavoriteItem {
 export const useAddToFavoriteList = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<FavoriteItem, Error, { id: number }>({
+  return useMutation<FavoriteItem, any, { id: number }>({
     mutationFn: async ({ id }) => {
-      // Call API to add favorite
-      return await addToFavoriteList(id);
+      return await addToFavoriteList(id); // API call
     },
 
-    // Optimistic update
+    // 🔹 Optimistic update
     onMutate: async ({ id }) => {
-      // Cancel outgoing fetches
       await queryClient.cancelQueries({ queryKey: ["favoriteItems"] });
 
       const previousFavorites =
         queryClient.getQueryData<FavoriteItem[]>(["favoriteItems"]) || [];
 
-      // Add a temporary optimistic favorite
       queryClient.setQueryData<FavoriteItem[]>(
         ["favoriteItems"],
         (old = []) => {
           const oldList = Array.isArray(old) ? old : [];
           if (!oldList.some((item) => item.id === id)) {
-            return [...oldList, { id } as FavoriteItem]; // minimal optimistic data
+            return [...oldList, { id } as FavoriteItem];
           }
           return oldList;
         }
@@ -48,35 +45,44 @@ export const useAddToFavoriteList = () => {
       return { previousFavorites };
     },
 
-    onError: (err, context: any) => {
-      console.error("Failed to add to favorites:", err.message);
+    // 🔹 Error handler with 409 support
+    onError: (err: any, _variables, context: any) => {
+      console.error("Failed to add to favorites:", err);
 
-      // Rollback optimistic update
       if (context?.previousFavorites) {
         queryClient.setQueryData(["favoriteItems"], context.previousFavorites);
       }
 
-      toast.error(`Failed to add item: ${err.message}`);
+      // ✅ handle backend conflict
+      if (err.response?.status === 409) {
+        toast.error(
+          err.response?.data?.message || "Product already in favorites"
+        );
+      } else {
+        toast.error(err.response?.data?.message || `Failed: ${err.message}`);
+      }
     },
 
-    onSuccess: (data) => {
-      // Update cache with full data from server
+    // 🔹 Success
+    onSuccess: (data: any) => {
       queryClient.setQueryData<FavoriteItem[]>(
         ["favoriteItems"],
         (old = []) => {
           const oldList = Array.isArray(old) ? old : [];
-          if (!oldList.some((item) => item.id === data.id)) {
-            return [...oldList, data];
+          if (!oldList.some((item) => item.id === data.favorite.id)) {
+            return [...oldList, data.favorite];
           }
-          return oldList.map((item) => (item.id === data.id ? data : item));
+          return oldList.map((item) =>
+            item.id === data.favorite.id ? data.favorite : item
+          );
         }
       );
-     
-      toast.success(data.message);
+
+      toast.success(data.message || "Added to favorites");
     },
 
+    // 🔹 Refetch after mutation
     onSettled: () => {
-      // Immediately refetch to get the latest server state
       queryClient.invalidateQueries({ queryKey: ["favoriteItems"] });
       queryClient.invalidateQueries({ queryKey: ["food"] });
     },

@@ -25,7 +25,7 @@ export const addToCart = async (req, res) => {
     // Check if already in cart
     const existingCartItem = await Cart.findOne({ id });
     if (existingCartItem) {
-      return res.status(200).json({
+      return res.status(409).json({
         message: "Item already exists in cart",
         cartItem: existingCartItem,
       });
