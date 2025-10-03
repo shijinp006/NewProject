@@ -12,9 +12,8 @@ export const Selection = () => {
   const { data: favoriteItems } = useGetFavoriteItemsList();
   const location = useLocation(); // to determine active route
 
-  console.log(cartItems?.length , "length");
-  
-  
+  const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
+  const safeFavoriteItems = Array.isArray(favoriteItems) ? favoriteItems : [];
 
   // helper function to check if link is active
   const isActive = (path: string) => location.pathname === path;
@@ -56,9 +55,9 @@ export const Selection = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <BsHeart className="w-[18px] h-full" />
-              {favoriteItems && favoriteItems.length > 0 && (
+              {safeFavoriteItems && safeFavoriteItems.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
-                  {favoriteItems.length}
+                  {safeFavoriteItems.length}
                 </span>
               )}
             </motion.div>
@@ -77,9 +76,9 @@ export const Selection = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <BiCart className="w-[23px] h-full" />
-              {cartItems && cartItems.length > 0 && (
+              {safeCartItems && safeCartItems.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
-                  {cartItems.length}
+                  {safeCartItems.length}
                 </span>
               )}
             </motion.div>
