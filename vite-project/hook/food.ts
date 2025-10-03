@@ -12,12 +12,10 @@ export interface Food {
   status: string;
 }
 
-export const useGetFood = (search: string) => {
-  return useQuery<Food[]>({
-    queryKey: ["Food", search],
-    queryFn: async () => {
-      return await getFood(search); // directly call your async function
-    },
+export const useGetFood = (search: string = "", filter: any = {}) => {
+  return useQuery({
+    queryKey: ["food", search, JSON.stringify(filter)], // include filter in queryKey
+    queryFn: () => getFood({ search, filter }), // pass both to API
   });
 };
 export const useGetFoodbyId = (id: number) => {

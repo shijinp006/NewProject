@@ -7,9 +7,7 @@ import { Selection } from "./selections/selection";
 import { useState } from "react";
 export const Home = () => {
   const [search, setSearch] = useState();
-
-
-
+  const [filters, setFilters] = useState({ categories: "", price: "" });
 
   return (
     <>
@@ -18,16 +16,16 @@ export const Home = () => {
           <Profile />
         </div>
         <div className="w-full">
-          <Search onSearch={setSearch} />
+          <Search onSearch={setSearch} onFilter={setFilters} />
         </div>
         <div className="w-full">
           <Categories />
         </div>
         <div className="w-full">
-          <PopularFood search={search} />
+          <PopularFood search={search} filter={filters} />
         </div>
         <div className="w-full">
-          <NearestFood search={search} />
+          <NearestFood search={search} filter={filters} />
         </div>
         <div className="w-full fixed bottom-0 right-0 z-6  rounded flex items-center justify-end">
           <Selection />

@@ -1,9 +1,15 @@
 import axios from "axios";
 
-export const getFood = async ({ search }: any) => {
+interface GetFoodParams {
+  search?: string;
+  filter?: Record<string, any>; // your filters
+}
+
+export const getFood = async ({ search = "", filter = {} }: GetFoodParams) => {
+  const params = { search, ...filter };
   try {
     const response = await axios.get("/getFood", {
-      params: { search }, // pass search as query parameter
+      params, // pass search as query parameter
     });
 
     return response.data;

@@ -1,24 +1,31 @@
 import Food from "../../Schema/Food.js";
 
 // Get all foods or search by query
+
 export const getFood = async (req, res) => {
   try {
-    const { search } = req.query;
+    const { search = "", category, price } = req.query;
 
-    let foods;
+    // Build a dynamic query object
+    const query = {};
 
-    if (!search || search.trim() === "") {
-      // If no search term, return all foods
-      foods = await Food.find({});
-    } else {
-      const regex = new RegExp(search, "i"); // Case-insensitive search
-      foods = await Food.find({
-        $or: [
-          { name: regex },
-          { category: regex }
-        ]
-      });
+    // Search by name or category if search term exists
+    if (search.trim() !== "") {
+      const regex = new RegExp(search, "i"); // case-insensitive
+      query.$or = [{ name: regex }, { category: regex }];
     }
+
+    // Filter by category if provided and not "All"
+    if (category && category !== "All") {
+      query.category = category;
+    }
+
+    // Filter by price if provided
+    if (price) {
+      query.price = { $lte: Number(price) }; // price less than or equal
+    }
+
+    const foods = await Food.find(query);
 
     return res.status(200).json(foods);
   } catch (error) {
@@ -30,13 +37,9 @@ export const getFood = async (req, res) => {
 // Get food by ID
 export const getFoodbyId = async (req, res) => {
   try {
-    
- 
-    
     const { id } = req.params;
     const productId = Number(id);
-    console.log(productId,"id");
-    
+    console.log(productId, "id");
 
     if (isNaN(productId)) {
       return res.status(400).json({ message: "Invalid ID" });

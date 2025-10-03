@@ -6,10 +6,11 @@ import { useEffect, useRef } from "react";
 import { useGetFood } from "../../../hook/food";
 import { useAddToFavoriteList } from "../../../hook/favoriteList";
 
-export const PopularFood = (search: any) => {
+export const PopularFood = ({ search, filter }: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { data,isLoading } = useGetFood(search);
+  const { data, isLoading, error } = useGetFood(search, filter);
   const navigate = useNavigate();
+  console.log(error);
 
   const PopularFood = data?.filter(
     (food: any) => food.category === "Popular Food"
@@ -41,8 +42,6 @@ export const PopularFood = (search: any) => {
       }
     }, 5000);
 
-    
-
     return () => clearInterval(interval);
   }, []);
   if (isLoading) {
@@ -72,7 +71,7 @@ export const PopularFood = (search: any) => {
           ref={scrollRef}
           className=" flex overflow-x-auto gap-4 py-2 scroll-smooth hide-scrollbar items-center justify-start  lg:grid lg:grid-cols-4 lg:place-items-center lg:gap-2  h-full w-full lg:w-[900px]"
         >
-          {PopularFood?.map((item) => (
+          {PopularFood?.map((item: any) => (
             <div
               key={item.id}
               className="flex-shrink-0 w-[165px] h-[270px] lg:h-full bg-white rounded-lg p-4 flex flex-col justify-between"

@@ -5,13 +5,15 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetFood } from "../../../hook/food";
 import { useAddToFavoriteList } from "../../../hook/favoriteList";
-export const NearestFood = (search: any) => {
+export const NearestFood = ({ search, filter }: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { data, } = useGetFood(search);
+  const { data } = useGetFood(search, filter);
 
   const navigate = useNavigate();
-  const NearestFood = data?.filter((food) => food.category === "Nearest Food");
+  const NearestFood = data?.filter(
+    (food: any) => food.category === "Nearest Food"
+  );
 
   const handleClick = (id: number) => {
     navigate(`/productdetails/${id}`);
@@ -44,7 +46,7 @@ export const NearestFood = (search: any) => {
 
   return (
     <>
-      <div className="flex flex-col  py-2 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center">
+      <div className="flex flex-col py-15 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center">
         {/* Header */}
         <div className="flex items-center justify-between w-full">
           <p className="text-xs lg:text-base font-[Geist] font-bold text-gray-800">

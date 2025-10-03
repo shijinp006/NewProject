@@ -2,12 +2,18 @@ import searchIcon from "../../assets/searchIcon.png";
 import filterIcon from "../../assets/filterIcon.png";
 import { FilterMenu } from "../filterMenu/filterMenu";
 
+interface SearchProps {
+  onSearch: (value: any) => void;
+  onFilter: (filters: any) => void;
+}
 import { useState, useRef, useEffect } from "react";
 
-export const Search = ({ onSearch }: { onSearch: (value: any) => void }) => {
+export const Search: React.FC<SearchProps> = ({ onSearch, onFilter }) => {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [filters, setFilters] = useState({ categories: "", price: "" });
+
+  // const [selectedCategory, setSelectedCategory] = useState("All");
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -25,15 +31,23 @@ export const Search = ({ onSearch }: { onSearch: (value: any) => void }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleOptionSelect = (value: string) => {
-    setSelectedCategory(value); // update selected value
-    onSearch(value); // send selected value to parent
-    setIsOpen(false); // close dropdown
-  };
+  // const handleOptionSelect = (value: string) => {
+  //   setSelectedCategory(value); // update selected value
+  //   onSearch(value); // send selected value to parent
+  //   setIsOpen(false); // close dropdown
+  // };
 
-  if (search) {
-    onSearch(search);
-  }
+  useEffect(() => {
+    if (search) {
+      onSearch?.(search); // safe optional chaining
+    }
+  }, [search, onSearch]);
+
+  useEffect(() => {
+    if (filters) {
+      onFilter?.(filters); // safe optional chaining
+    }
+  }, [filters, onFilter]);
 
   return (
     <div className="flex items-center w-full h-full max-w-7xl px-4 md:px-6 lg:px-10 mx-auto relative">
@@ -77,9 +91,7 @@ export const Search = ({ onSearch }: { onSearch: (value: any) => void }) => {
             {/* Dropdown Menu */}
             {isOpen && (
               <div className="absolute top-full mt-2 right-0 z-50 bg-white shadow-lg p-4 rounded min-w-[200px]">
-                <FilterMenu
-                 
-                />
+                <FilterMenu onFilterChange={setFilters} open = {setIsOpen} />
               </div>
             )}
           </div>
