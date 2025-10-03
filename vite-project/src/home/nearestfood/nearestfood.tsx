@@ -60,7 +60,7 @@ export const NearestFood = ({ search, filter, Loading }: any) => {
       <div className="flex flex-col py-2 px-4 w-full h-full   items-center justify-center">
         {/* Header */}
         {NearestFood && NearestFood.length > 0 && (
-          <div className="flex flex-col py-15  w-full h-full lg:mt-0  items-center justify-center">
+          <div className="flex flex-col py-12  w-full h-full lg:mt-0  items-center justify-center">
             {/* Header */}
             <div className="flex items-center justify-between w-full">
               <p className="text-xs lg:text-base font-[Geist] font-bold text-gray-800">
