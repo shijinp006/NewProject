@@ -51,7 +51,7 @@ export const PopularFood = ({ search, filter }: any) => {
     );
   }
 
-  if (!data || data.length === 0 || data === undefined)
+  if (!PopularFood || PopularFood.length === 0)
     return <p>No foods available.</p>;
   return (
     <>
