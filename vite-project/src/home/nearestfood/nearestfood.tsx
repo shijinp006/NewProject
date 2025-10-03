@@ -5,11 +5,17 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetFood } from "../../../hook/food";
 import { useAddToFavoriteList } from "../../../hook/favoriteList";
+import { useAddToCart } from "../../../hook/cart";
 export const NearestFood = ({ search, filter, Loading }: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-
+  const quantity = 1;
   const { data, isLoading } = useGetFood(search, filter);
 
+  const { mutate: addToCart } = useAddToCart();
+
+  const handleAddToCart = (id: number, quantity: number) => {
+    addToCart({ id, quantity }); // add 1 item
+  };
   const navigate = useNavigate();
   const NearestFood = Array.isArray(data)
     ? data.filter((food: any) => food.category === "Nearest Food")
@@ -119,7 +125,10 @@ export const NearestFood = ({ search, filter, Loading }: any) => {
                       Rs. {item.price}
                     </p>
                     <div className="flex items-center justify-center bg-[#CC001F] w-[23px] h-[23px] rounded-[4px] cursor-pointer">
-                      <GoPlus className="w-full text-white" />
+                      <GoPlus
+                        className="w-full text-white"
+                        onClick={() => handleAddToCart(item.id, quantity || 1)}
+                      />
                     </div>
                   </div>
                 </div>

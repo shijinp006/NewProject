@@ -5,8 +5,10 @@ import { GoPlus } from "react-icons/go";
 import { useEffect, useRef } from "react";
 import { useGetFood } from "../../../hook/food";
 import { useAddToFavoriteList } from "../../../hook/favoriteList";
+import { useAddToCart } from "../../../hook/cart";
 
-export const PopularFood = ({ search, filter,Loading }: any) => {
+export const PopularFood = ({ search, filter, Loading }: any) => {
+  const quantity = 1;
   const scrollRef = useRef<HTMLDivElement>(null);
   const { data, isLoading, error } = useGetFood(search, filter);
   const navigate = useNavigate();
@@ -19,6 +21,11 @@ export const PopularFood = ({ search, filter,Loading }: any) => {
     navigate(`/productdetails/${id}`);
   };
 
+  const { mutate: addToCart } = useAddToCart();
+
+  const handleAddToCart = (id: number, quantity: number) => {
+    addToCart({ id, quantity }); // add 1 item
+  };
   const { mutate: addToFavoriteList } = useAddToFavoriteList();
 
   const addToFavorite = (id: number) => {
@@ -44,10 +51,10 @@ export const PopularFood = ({ search, filter,Loading }: any) => {
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
-  if (isLoading) {
-    Loading(true);
-  }
-  },[isLoading])
+    if (isLoading) {
+      Loading(true);
+    }
+  }, [isLoading]);
   return (
     <>
       <div className="flex flex-col  py-12 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center">
@@ -118,7 +125,10 @@ export const PopularFood = ({ search, filter,Loading }: any) => {
                       Rs. {item.price}
                     </p>
                     <div className="flex items-center justify-center bg-[#CC001F] w-[23px] h-[23px] rounded-[4px] cursor-pointer">
-                      <GoPlus className="text-white w-full" />
+                      <GoPlus
+                        className="text-white w-full"
+                        onClick={() => handleAddToCart(item.id, quantity || 1)}
+                      />
                     </div>
                   </div>
                 </div>
