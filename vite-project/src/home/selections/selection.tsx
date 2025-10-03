@@ -11,6 +11,10 @@ export const Selection = () => {
   const { data: cartItems } = useGetCartItems();
   const { data: favoriteItems } = useGetFavoriteItemsList();
   const location = useLocation(); // to determine active route
+  console.log(cartItems,"cart");
+  console.log(favoriteItems , "fav");
+  
+  
 
   // helper function to check if link is active
   const isActive = (path: string) => location.pathname === path;
