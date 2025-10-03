@@ -44,10 +44,10 @@ export const NearestFood = ({ search, filter, Loading }: any) => {
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
-  if (isLoading) {
-    Loading(true);
-  }
-  },[isLoading])
+    if (isLoading) {
+      Loading(true);
+    }
+  }, [isLoading]);
 
   return (
     <>
@@ -77,7 +77,7 @@ export const NearestFood = ({ search, filter, Loading }: any) => {
                 >
                   {/* Heart Icon */}
                   <button
-                    className="flex items-center justify-end"
+                    className="flex items-center w-[20px] ml-29"
                     onClick={() => addToFavorite(item.id)}
                   >
                     {item.status === "Favorite" ? (

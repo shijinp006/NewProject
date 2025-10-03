@@ -71,14 +71,14 @@ export const useAddToFavoriteList = () => {
           return oldList.map((item) => (item.id === data.id ? data : item));
         }
       );
-
+     
       toast.success(data.message);
     },
 
     onSettled: () => {
       // Immediately refetch to get the latest server state
       queryClient.invalidateQueries({ queryKey: ["favoriteItems"] });
-      queryClient.invalidateQueries({ queryKey: ["Food"] });
+      queryClient.invalidateQueries({ queryKey: ["food"] });
     },
   });
 };

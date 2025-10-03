@@ -76,7 +76,7 @@ export const PopularFood = ({ search, filter,Loading }: any) => {
                 >
                   {/* Heart Icon top-right */}
                   <button
-                    className="flex items-center justify-end"
+                    className="flex items-center w-[20px] ml-29"
                     onClick={() => addToFavorite(item.id)}
                   >
                     {item.status === "Favorite" ? (
