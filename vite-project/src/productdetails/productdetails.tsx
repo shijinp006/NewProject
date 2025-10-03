@@ -11,6 +11,7 @@ import { useAddToCart } from "../../hook/cart";
 export const ProductDetails = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [quantity, setQuantity] = useState(1);
+
   if (quantity < 1) {
     setQuantity(1);
   }
