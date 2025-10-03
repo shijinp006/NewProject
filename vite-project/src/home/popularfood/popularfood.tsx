@@ -12,7 +12,7 @@ export const PopularFood = ({ search, filter }: any) => {
   const navigate = useNavigate();
   console.log(error);
 
-  const PopularFood = data?.filter(
+  const PopularFood = data.filter(
     (food: any) => food.category === "Popular Food"
   );
 
