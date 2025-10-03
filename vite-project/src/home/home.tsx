@@ -25,6 +25,9 @@ export const Home = () => {
     return () => clearTimeout(timer);
   }, [loading]); // run once on mount
 
+
+  
+
   return (
     <>
       <div className="w-full h-full flex items-center justify-center flex-col lg:flex-row flex-wrap bg-[#F5F5F5] relative">
