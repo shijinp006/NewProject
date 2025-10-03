@@ -53,7 +53,7 @@ console.log(data,"data");
     );
   }
 
-  if (!data || data.length === 0) return <p>No foods available.</p>;
+  if (!data || data.length === 0 || data === undefined) return <p>No foods available.</p>;
   return (
     <>
       <div className="flex flex-col  py-2 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center">
