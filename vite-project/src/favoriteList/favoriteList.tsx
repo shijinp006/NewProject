@@ -49,7 +49,7 @@ export const FavoriteList = () => {
 
         {/* Message */}
         <p className="text-gray-500 text-xl font-semibold">
-          Your Favorite List is empty
+          Your Wish List is empty
         </p>
         <p className="text-gray-400 text-sm">
           Looks like you haven’t added anything to your cart yet.

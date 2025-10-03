@@ -57,10 +57,10 @@ export const PopularFood = ({ search, filter, Loading }: any) => {
   }, [isLoading]);
   return (
     <>
-      <div className="flex flex-col  py-2 px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center ">
+      <div className="flex flex-col  px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center ">
         {/* Header */}
         {PopularFood && PopularFood.length > 0 && (
-          <div className="flex flex-col w-full h-full py-7 lg:mt-0 mt-2 items-center justify-center">
+          <div className="flex flex-col w-full h-full py-12 lg:mt-0 mt-2  justify-center">
             {/* Header */}
             <div className="flex items-center justify-between w-full">
               <p className="text-xs lg:text-base font-[Geist] font-bold text-gray-800">
