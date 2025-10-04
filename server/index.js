@@ -17,8 +17,6 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 const app = express();
-// const backendUrl = process.env.BACKEND_URL;
-// console.log(backendUrl);
 
 const Port = 4000;
 // Middleware
