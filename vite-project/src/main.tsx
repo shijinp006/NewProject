@@ -7,7 +7,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Set Axios base URL
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
-// axios.defaults.baseURL = "http://localhost:4000";
+console.log(axios.defaults.baseURL,"axios");
+
+
+axios.defaults.baseURL = "http://localhost:4000";
 
 // Create React Query client
 const queryClient = new QueryClient();
