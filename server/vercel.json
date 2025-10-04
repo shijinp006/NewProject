@@ -13,7 +13,7 @@
     }
   ],
   "env": {
-    "MONGO_URI": "mongodb+srv://shijinp9404_db_user:<db_password>@mymongodb.7w6ykb4.mongodb.net/",
+    "MONGO_URI": "mongodb+srv://shijinp9404_db_user:Nh0lpZel2stQ9w1H@cluster0.hs5q1mh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     "PORT": "4000"
   }
 }
