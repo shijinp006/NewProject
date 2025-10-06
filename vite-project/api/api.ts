@@ -14,8 +14,8 @@ export const getFood = async ({ search = "", filter = {} }: GetFoodParams) => {
 
     return response.data;
   } catch (error: any) {
-    console.error("Error fetching popular foods:", error.message || error);
-    throw new Error("Failed to fetch popular foods");
+    console.error("Error fetching  foods:", error.message || error);
+    throw new Error("Failed to fetch  foods");
   }
 };
 

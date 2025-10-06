@@ -35,8 +35,5 @@ export const AddFoodDetails = async (req, res) => {
     return res
       .status(500)
       .json({ message: "MongoDB connection failed", error: err.message });
-  } finally {
-    // Always disconnect after operation
-    await mongoose.disconnect();
-  }
+  } 
 };
