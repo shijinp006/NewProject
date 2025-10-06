@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import FoodRoute from "./routes/FoodRoute.js"; // ✅ include .js
 import CartRoute from "./routes/CartRoute.js";
 import FavoriteRoute from "./routes/FavoriteRoute.js";
+import AddFoodRoute from "./routes/AddFoodRoute.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use("/", express.static("public"));
 app.use("/", FoodRoute);
 app.use("/", CartRoute);
 app.use("/", FavoriteRoute);
+app.use("/", AddFoodRoute);
 
 app.listen(Port, () => {
   console.log(`Server Running Port ${Port}`);
