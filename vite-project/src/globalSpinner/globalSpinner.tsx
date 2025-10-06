@@ -9,7 +9,7 @@ export const GlobalSpinner = () => {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-white z-50 p-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl">
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
