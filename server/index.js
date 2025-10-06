@@ -21,14 +21,22 @@ const app = express();
 
 const Port = 4000;
 // Middleware
+// app.use(
+//   cors({
+//     origin: "*",
+//     methods: ["GET", "POST", "PUT", "DELETE"], // explicitly allow these methods
+//     allowedHeaders: ["Content-Type", "Authorization"], // optional: specify headers
+//   })
+// );
+
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"], // explicitly allow these methods
-    allowedHeaders: ["Content-Type", "Authorization"], // optional: specify headers
+    origin: process.env.FRONTEND_URL, // ✅ Allow only your Vercel domain
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // optional — if using cookies or JWT
   })
 );
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", express.static("public"));
