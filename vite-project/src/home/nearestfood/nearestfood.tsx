@@ -30,22 +30,20 @@ export const NearestFood = ({ search, filter, Loading }: any) => {
   const addToFavorite = (id: number) => {
     addToFavoriteList({ id });
   };
-  useEffect(() => {
+   useEffect(() => {
     const interval = setInterval(() => {
       if (scrollRef.current) {
-        // Scroll by the width of one card
+        const { scrollLeft, clientWidth, scrollWidth } = scrollRef.current;
         const cardWidth = 165 + 16; // card width + gap (Tailwind gap-4 = 16px)
-        if (
-          scrollRef.current.scrollLeft + scrollRef.current.clientWidth >=
-          scrollRef.current.scrollWidth
-        ) {
-          // If at the end, scroll back to start
+
+        // When reaching the end, restart smoothly
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
           scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
         } else {
           scrollRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
         }
       }
-    }, 5000);
+    }, 5000); // adjust timing as needed
 
     return () => clearInterval(interval);
   }, []);
