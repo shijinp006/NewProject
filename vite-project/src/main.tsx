@@ -13,6 +13,8 @@ import { registerSW } from "virtual:pwa-register";
 // Development API
 // axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.baseURL = "https://newfoodproject1.onrender.com";
+console.log(axios);
+
 
 // ---------------------------
 // React Query Client Setup
