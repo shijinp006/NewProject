@@ -19,7 +19,7 @@ export const Home = () => {
     // Stop loading after 1 second
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 2000);
 
     // Cleanup
     return () => clearTimeout(timer);
@@ -37,7 +37,7 @@ export const Home = () => {
         <div className="w-full">
           <Categories />
         </div>
-        <div className="w-full">
+        <div className="w-full ">
           <PopularFood
             search={search}
             filter={filters}

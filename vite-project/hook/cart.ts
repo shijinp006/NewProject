@@ -173,6 +173,7 @@ export const useDeleteCart = () => {
     onSettled: () => {
       // Ensure cache is in sync with server
       queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+      queryClient.invalidateQueries({ queryKey: ["favoriteItems"] });
     },
   });
 };

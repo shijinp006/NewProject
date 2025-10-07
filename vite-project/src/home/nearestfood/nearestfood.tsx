@@ -72,7 +72,7 @@ export const NearestFood = ({ search, filter, Loading }: any) => {
             {/* Horizontal Scroll */}
             <div
               ref={scrollRef}
-              className="flex overflow-x-auto gap-4 py-2 scroll-smooth hide-scrollbar items-center justify-start lg:grid lg:grid-cols-4 lg:place-items-center lg:gap-2 h-full w-full lg:w-[900px]"
+              className="flex overflow-x-auto gap-4 py-2 scroll-smooth hide-scrollbar items-center justify-start lg:grid lg:grid-cols-4 lg:place-items-center lg:gap-2 h-full w-full lg:w-[900px] "
             >
               {NearestFood.map((item: any) => (
                 <div

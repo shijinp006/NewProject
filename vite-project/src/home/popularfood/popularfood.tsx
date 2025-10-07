@@ -49,9 +49,9 @@ export const PopularFood = ({ search, filter, Loading }: any) => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
+  useEffect (() => {
     if (isLoading) {
-      Loading(true);
+        Loading(true);
     }
   }, [isLoading]);
   return (
