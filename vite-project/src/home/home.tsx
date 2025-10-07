@@ -7,7 +7,6 @@ import { Selection } from "./selections/selection";
 import { useEffect, useState } from "react";
 import { useLoading } from "../loadingContext/loadingContext";
 import emptyImage from "../assets/empty.png";
-import netWorkError from "../../public/images/charging.png";
 
 export const Home = () => {
   const [search, setSearch] = useState();
@@ -45,11 +44,6 @@ export const Home = () => {
   if (!isOnline) {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-gray-100 text-center px-4">
-        <img
-          src={netWorkError}
-          alt="No Internet Connection"
-          className="w-50 h-50 object-contain mb-6 opacity-90"
-        />
         <h1 className="text-3xl font-extrabold text-red-600 mb-2">
           No Internet Connection
         </h1>
