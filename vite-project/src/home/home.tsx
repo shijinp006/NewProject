@@ -7,7 +7,7 @@ import { Selection } from "./selections/selection";
 import { useEffect, useState } from "react";
 import { useLoading } from "../loadingContext/loadingContext";
 import emptyImage from "../assets/empty.png";
-import netWorkError from "../assets/charging.png";
+import netWorkError from "../../public/images/charging.png";
 
 export const Home = () => {
   const [search, setSearch] = useState();
