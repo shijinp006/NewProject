@@ -7,7 +7,12 @@ import { useGetFood } from "../../../hook/food";
 import { useAddToFavoriteList } from "../../../hook/favoriteList";
 import { useAddToCart } from "../../../hook/cart";
 
-export const PopularFood = ({ search, filter, Loading }: any) => {
+export const PopularFood = ({
+  search,
+  filter,
+  Loading,
+  emptyPopularFood,
+}: any) => {
   const quantity = 1;
   const scrollRef = useRef<HTMLDivElement>(null);
   const { data, isLoading, error } = useGetFood(search, filter);
@@ -49,11 +54,22 @@ export const PopularFood = ({ search, filter, Loading }: any) => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect (() => {
+  useEffect(() => {
     if (isLoading) {
-        Loading(true);
+      Loading(true);
     }
   }, [isLoading]);
+
+  useEffect(() => {
+    if (!data) return; // Wait until data is defined
+
+    if (Array.isArray(data) && data.length === 0) {
+      emptyPopularFood(true);
+    } else {
+      emptyPopularFood(false);
+    }
+  }, [data]);
+
   return (
     <>
       <div className="flex flex-col  px-4 w-full h-full lg:mt-0 mt-2 items-center justify-center ">

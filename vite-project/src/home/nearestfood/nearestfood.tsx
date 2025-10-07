@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetFood } from "../../../hook/food";
 import { useAddToFavoriteList } from "../../../hook/favoriteList";
 import { useAddToCart } from "../../../hook/cart";
-export const NearestFood = ({ search, filter, Loading }: any) => {
+export const NearestFood = ({ search, filter, Loading,emptyNearestFood }: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const quantity = 1;
   const { data, isLoading } = useGetFood(search, filter);
@@ -52,7 +52,15 @@ export const NearestFood = ({ search, filter, Loading }: any) => {
       Loading(true);
     }
   }, [isLoading]);
+  useEffect(() => {
+    if (!data) return; // Wait until data is defined
 
+    if (Array.isArray(data) && data.length === 0) {
+      emptyNearestFood(true);
+    } else {
+      emptyNearestFood(false);
+    }
+  }, [data]);
   return (
     <>
       <div className="flex flex-col  px-4 w-full h-full">
