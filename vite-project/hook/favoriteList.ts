@@ -137,6 +137,7 @@ export const useDeleteFavoriteItem = () => {
     onSettled: () => {
       // Ensure cache is in sync with server
       queryClient.invalidateQueries({ queryKey: ["favoriteItems"] });
+      queryClient.invalidateQueries({ queryKey: ["food"] });
     },
   });
 };
