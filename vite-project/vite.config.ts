@@ -22,6 +22,10 @@ export default defineConfig({
           { src: "/images/download.png", sizes: "512x512", type: "image/png" },
         ],
       },
+      devOptions: {
+        enabled: true,
+        type: "module",
+      },
     }),
   ],
 });

@@ -5,6 +5,7 @@ import Food from "../../Schema/Food.js";
 export const addToFavoriteList = async (req, res) => {
   try {
     const id = Number(req.params.id);
+
     if (!id || isNaN(id))
       return res.status(400).json({ message: "Invalid product ID" });
 
