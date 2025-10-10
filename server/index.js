@@ -13,7 +13,7 @@ dotenv.config();
 const mongoUri = process.env.MONGO_URI;
 
 mongoose
-  .connect(mongoURI, {})
+  .connect(mongoUri, {})
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
